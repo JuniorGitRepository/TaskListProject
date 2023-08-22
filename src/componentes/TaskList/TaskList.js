@@ -1,17 +1,24 @@
 import React from "react";
 import "./TaskList.css";
 import PropTypes from "prop-types";
-
-export default function TaskList({ title, onAddTask}) {
+import TaskItem from "../TaskItem/TaskItem";
+export default function TaskList({ title,taskState, onAddTask, tasks, onTaskUpdate}) {
   const addTask = () => {
-    console.log("chamada dentro do tasklist")
-    onAddTask("Nova Tarefa","Pendente");
+    onAddTask("Nova Tarefa",taskState);
   };
 
   return (
     <div className="tasklist">
       <span className="title">{title}</span>
       <div className="content">
+        {tasks.map((task) =>{
+          return <TaskItem 
+                    key={task.id}
+                    id={task.id} 
+                    title={task.title}
+                    taskState={task.state}
+                    onTaskUpdate={onTaskUpdate}/>
+        })}
         <button onClick={addTask}>Adicionar Tarefa</button>
       </div>
     </div>
@@ -19,5 +26,6 @@ export default function TaskList({ title, onAddTask}) {
 }
 TaskList.propTypes = {
   title: PropTypes.string.isRequired,
-  onAddTask: PropTypes.func.isRequired
+  onAddTask: PropTypes.func.isRequired,
+  tasks:PropTypes.array.isRequired
 };
