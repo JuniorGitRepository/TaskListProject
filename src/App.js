@@ -40,6 +40,12 @@ export default function App() {
       });
     });
   };
+
+  const deleteTask = (id)=>{
+    setTasks((listTasks)=>{
+      return listTasks.filter(task=> task.id !==id);
+    });
+  };
   return (
     <div className="App">
       <Navbar />
@@ -48,18 +54,24 @@ export default function App() {
             title="Pendente" 
             onAddTask={addTask}  
             taskState="Pendente"
-            tasks={tasks.filter(t=> t.state==="Pendente")} onTaskUpdate={updateTask} />
+            tasks={tasks.filter(t=> t.state==="Pendente")} 
+            onTaskUpdate={updateTask} 
+            onDeleteTask={deleteTask}/>
          <TaskList 
             title="Fazendo" 
             onAddTask={addTask} 
             taskState="Fazendo" 
-            tasks={tasks.filter(t=> t.state==="Fazendo")} onTaskUpdate={updateTask} />
+            tasks={tasks.filter(t=> t.state==="Fazendo")} 
+            onTaskUpdate={updateTask} 
+            onDeleteTask={deleteTask}/>
 
           <TaskList 
             title="Completa" 
             onAddTask={addTask}  
             taskState="Completa"
-            tasks={tasks.filter(t=> t.state==="Completa")} onTaskUpdate={updateTask} />
+            tasks={tasks.filter(t=> t.state==="Completa")} 
+            onTaskUpdate={updateTask} 
+            onDeleteTask={deleteTask}/>
         
       </div>
     </div>
